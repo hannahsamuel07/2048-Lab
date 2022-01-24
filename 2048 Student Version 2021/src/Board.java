@@ -47,10 +47,31 @@ public class Board {
 		
 		//setup loops to visit
 		//every spot possible
+		String builder = String.format("%04d",board[0][0]);
 		
+		//Inserting New Line characters?
+		builder+= "\n"; //\n----> new line character
+		builder+= String.format("%04d",board[0][1]);
 		
+		//write nested loop
+		//to traverse the 2D array
+		//build the String to represent the elements on the board
+		//when you do add a new line character in the String you're building
+		for(int row = 0; row<board.length; row++) {
+			for(int col = 0; col<board[row].length; col++) {
+			
+				builder+= String.format("%04d", board[row][col]);
+				builder+= "\n"; //\n----> new line character
+				
+			
+				builder+= "";
+				
+				
+				
+			}
+		}
 		
-		return "";
+		return builder;
 	}
 
 	/*
@@ -70,11 +91,23 @@ public class Board {
 		// check if that tile is empty, if it is NOT empty,
 		// generate another set of row and column
 		// what happens if the entire board is full??! 
+		//int x = rnd.nextInt(range+1) +min;
+		int row = rnd.nextInt(3-0+1) + 0; //min : 0 max : 3
 		
+		//write the line of code to randomly pick a column similar to
+		//picking a row
+		int col = rnd.nextInt(3-0+1) +0;
 		
+		//check if the spot is taken- AKA it's not 0 at the location
+		//keep generating a row and col value until you find a spot 
+		//that is empty
 		
-			
-
+		//generating a 2 a 4 with 10& chance 4 and 90% chance 2
+		if(rnd.nextInt(4)<=1) {
+			//because rnd.nextInt can return 0,1,2,3,4
+			//0 will be generated 25% of the time!
+			//and a 1 will be generated 25% time
+		}
 	}
 
 	/*
