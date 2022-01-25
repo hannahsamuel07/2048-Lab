@@ -18,7 +18,7 @@ public class Activity3Tester {
 		b.slideRight(array);
 		//System.out.print(array);
 		for(int val : array) {
-			System.out.println(val);
+			System.out.println(val + " ");
 		
 		}
 	}
