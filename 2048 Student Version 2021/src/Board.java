@@ -4,7 +4,7 @@ public class Board {
  
 	private int[][] board; // holds state of game
 	private Random rnd = new Random(0); // setup random # generator
-	
+	private int size;
 	//What instance variable can you add to keep track of the size or the number of tiles occupied?
 	
 	/* default constructor for board */
@@ -47,11 +47,11 @@ public class Board {
 		
 		//setup loops to visit
 		//every spot possible
-		String builder = String.format("%04d",board[0][0]);
+		String builder = "";
 		
 		//Inserting New Line characters?
-		builder+= "\n"; //\n----> new line character
-		builder+= String.format("%04d",board[0][1]);
+		//builder+= "\n"; //\n----> new line character
+		//builder+= String.format("%04d",board[0][1]);
 		
 		//write nested loop
 		//to traverse the 2D array
@@ -61,14 +61,10 @@ public class Board {
 			for(int col = 0; col<board[row].length; col++) {
 			
 				builder+= String.format("%04d", board[row][col]);
-				builder+= "\n"; //\n----> new line character
-				
-			
-				builder+= "";
-				
-				
+				builder+= " ";
 				
 			}
+			builder+= "\n"; //\n----> new line character
 		}
 		
 		return builder;
@@ -97,17 +93,34 @@ public class Board {
 		//write the line of code to randomly pick a column similar to
 		//picking a row
 		int col = rnd.nextInt(3-0+1) +0;
-		
+		boolean found = false;
 		//check if the spot is taken- AKA it's not 0 at the location
 		//keep generating a row and col value until you find a spot 
 		//that is empty
 		
 		//generating a 2 a 4 with 10& chance 4 and 90% chance 2
-		if(rnd.nextInt(4)<=1) {
-			//because rnd.nextInt can return 0,1,2,3,4
-			//0 will be generated 25% of the time!
-			//and a 1 will be generated 25% time
+		while(found == false) {
+			if(board[row][col]!= 0) {
+				row =  rnd.nextInt(4);
+				col = rnd.nextInt(4);
+			}else {
+				found = true;
+			}
 		}
+		if(rnd.nextInt(10)<=8) {
+			board[row][col] = 2;
+		}else {
+			board[row][col] = 4;
+		}
+	}
+	
+	public void eraseBoard() {
+		for(int row = 0; row<board.length; row++) {
+			for(int col = 0; col<board[row].length; col++) {
+				board[row][col] = 0;
+			}
+			
+			}
 	}
 
 	/*
@@ -123,7 +136,17 @@ public class Board {
 
 	public void slideRight(int[] row) {
 		
-
+		int index = row.length-1;
+		int[] myArray = new int[row.length];
+		for (int i = 0; i<row.length; i++) {
+			if(row[i] != 0) {
+				myArray[index] = row[i];
+				index--;
+			}
+		}
+		for(int i = 0; i<row.length; i++) {
+			row[i] = myArray[i];
+		}
 	
 	}
 
@@ -142,7 +165,9 @@ public class Board {
 
 		// go through 2D array, move all digits as far right as possible
 		//setup a loop to grab ONE row at a time from 2d array board
-	
+		for(int i = 0 ; i<board.length; i++) {
+			slideRight(board[i]);
+		}
 		
 	}
 
