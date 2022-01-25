@@ -181,7 +181,17 @@ public class Board {
 	 */
 
 	public void slideLeft(int[] arr) {
-		
+		int index = 0;
+		int[] myArray = new int[arr.length];
+		for(int i = 0; i<arr.length; i++) {
+			if(arr[i] != 0) {
+				myArray[index] = arr[i];
+				index++;
+			}
+		}
+		for(int i = 0; i<arr.length; i++) {
+			arr[i] = myArray[i];
+		}
 		
 		
 	}
@@ -197,7 +207,9 @@ public class Board {
 		// grabbing a row from a 2D array
 		// if it's called arr then arr[i] grabs ONE row!
 	
-		
+		for(int i = 0; i<board.length; i++) {
+			slideLeft(board[i]);
+		}
 		
 		//visit every single row in the 2D array
 		//call the slideLeft method that takes in one argument
