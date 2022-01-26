@@ -5,6 +5,7 @@ public class Board {
 	private int[][] board; // holds state of game
 	private Random rnd = new Random(0); // setup random # generator
 	private int size;
+	
 	//What instance variable can you add to keep track of the size or the number of tiles occupied?
 	
 	/* default constructor for board */
@@ -48,6 +49,7 @@ public class Board {
 		//setup loops to visit
 		//every spot possible
 		String builder = "";
+				//String.format("%04d",board[0][0]);
 		
 		//Inserting New Line characters?
 		//builder+= "\n"; //\n----> new line character
@@ -59,12 +61,17 @@ public class Board {
 		//when you do add a new line character in the String you're building
 		for(int row = 0; row<board.length; row++) {
 			for(int col = 0; col<board[row].length; col++) {
-			
-				builder+= String.format("%04d", board[row][col]);
-				builder+= " ";
+				
+				
+					builder+= String.format("%04d", board[row][col]);
+					builder+= " ";
+					if(board[row][col] != 0) {
+						size++;
+					}
+				
 				
 			}
-			builder+= "\n"; //\n----> new line character
+				builder+= "\n"; //\n----> new line character
 		}
 		
 		return builder;
@@ -92,13 +99,8 @@ public class Board {
 		
 		//write the line of code to randomly pick a column similar to
 		//picking a row
-		int col = rnd.nextInt(3-0+1) +0;
+		int col = rnd.nextInt(3-0+1) + 0;
 		boolean found = false;
-		//check if the spot is taken- AKA it's not 0 at the location
-		//keep generating a row and col value until you find a spot 
-		//that is empty
-		
-		//generating a 2 a 4 with 10& chance 4 and 90% chance 2
 		while(found == false) {
 			if(board[row][col]!= 0) {
 				row =  rnd.nextInt(4);
@@ -112,8 +114,22 @@ public class Board {
 		}else {
 			board[row][col] = 4;
 		}
+		//check if the spot is taken- AKA it's not 0 at the location
+		//keep generating a row and col value until you find a spot 
+		//that is empty
+		
+		
+		
+			
+		//}
+		
+		//generating a 2 a 4 with 10& chance 4 and 90% chance 2
+		//if(rnd.nextInt(4)<=1) {
+			//because rnd.nextInt can return 0,1,2,3,4
+			//0 will be generated 25% of the time!
+			//and a 1 will be generated 25% time
+		
 	}
-	
 	public void eraseBoard() {
 		for(int row = 0; row<board.length; row++) {
 			for(int col = 0; col<board[row].length; col++) {
@@ -123,6 +139,8 @@ public class Board {
 			}
 	}
 
+	
+	
 	/*
 	 * 
 	 * Given an array of integers, slide all non-zero elements to the right.
@@ -133,12 +151,11 @@ public class Board {
 	 * [2 8 0 2]->[0 2 8 2]
 	 * [4 0 0 0]->[0 0 0 4]
 	 */
-
+	
 	public void slideRight(int[] row) {
-		
 		int index = row.length-1;
 		int[] myArray = new int[row.length];
-		for (int i = 0; i<row.length; i++) {
+		for (int i = row.length-1; i>=0; i--) {
 			if(row[i] != 0) {
 				myArray[index] = row[i];
 				index--;
@@ -181,6 +198,7 @@ public class Board {
 	 */
 
 	public void slideLeft(int[] arr) {
+		
 		int index = 0;
 		int[] myArray = new int[arr.length];
 		for(int i = 0; i<arr.length; i++) {
@@ -192,7 +210,6 @@ public class Board {
 		for(int i = 0; i<arr.length; i++) {
 			arr[i] = myArray[i];
 		}
-		
 		
 	}
 
@@ -206,10 +223,10 @@ public class Board {
 		
 		// grabbing a row from a 2D array
 		// if it's called arr then arr[i] grabs ONE row!
-	
 		for(int i = 0; i<board.length; i++) {
 			slideLeft(board[i]);
 		}
+		
 		
 		//visit every single row in the 2D array
 		//call the slideLeft method that takes in one argument
@@ -223,8 +240,20 @@ public class Board {
 	 */
 	public int[] getCol(int[][] data, int c) {
 		
-		//you can also add print out statements here
-		return new int[0];
+		int row = 0;
+		int[] myArray = new int [data.length];
+			for(int i = 0; i<data. length; i++) {
+				if(data[row][c] != 0) {
+				myArray[i] = data[row][c];
+				row++;
+				}else {
+				row++;
+				}
+				
+			}
+
+
+		return myArray;
 		
 	}
 
@@ -236,7 +265,9 @@ public class Board {
 
 	public void slideUp(int[] arr) {
 		/* calls a helper method */
+		
 		// do not rewrite logic you already have!
+		slideLeft(arr);
 	}
 
 	/*
@@ -253,14 +284,22 @@ public class Board {
 		//have slideLeft perform manipulation on the array
 		// copy over the 1D array representation of the column
 		// back to the 2D board array
+		for(int col = 0; col<board.length; col++) {
+			int array[] = new int[4];
+			array = getCol(board, col);
+			slideUp(array);
+			for(int row = 0; row<board.length; row++) {
+				board[row][col] = array[row];
+			}
 
+		}
 		
 		
 		
 	}
 
 	public void slideDown(int[] arr) {
-
+		slideRight(arr);
 		
 	}
 
@@ -271,9 +310,16 @@ public class Board {
 	 */
 
 	public void slideDown() {
-
+		for(int col = 0; col<board.length; col++) {
+			int array[] = new int[4];
+			array = getCol(board, col);
+			slideDown(array);
+			for(int row = 0; row<board.length; row++) {
+				board[row][col] = array[row];
+			}
+		}
 	}
-
+	
 	/*
 	 * Given the 2D array, board, combineRight will take adjacent numbers that
 	 * are the same and combine them (add them).
@@ -284,18 +330,47 @@ public class Board {
 	 * produce [0 4 0 4].
 	 * 
 	 * Notice that the left element is zeroed out.
+	 * [2 2 2 2]
+	 * [0 4 2 2] 
 	 */
-
+	public void combineRight(int[] arr) {
+		for(int i = 0; i<arr.length-1; i++) {
+			if(arr[i]==arr[i+1]) {
+				arr[i+1] = arr[i] +arr[i];
+				arr[i] = 0;	
+				i++;
+			}
+		}
+		
+	}
 	public void combineRight() {
-
+		for(int i = 0; i<board.length; i++) {
+			combineRight(board[i]);
+		}
 	}
 
 	/*
 	 * same behavior as combineRight but the right element is zeroed out when
 	 * two elements are combined
+	 * [2,2,2,2]
+	 * [4,0,4,0]
+	 * [8,0,0,0]
 	 */
-
+	public void combineLeft(int[] arr) {
+		for(int i = 0; i<arr.length-1; i++) {
+			if(arr[i]==arr[i+1]) {
+				arr[i] = arr[i] +arr[i];	
+				arr[i+1] = 0;
+	
+				i++;
+			}
+		}
+	}
 	public void combineLeft() {
+		for(int i = 0; i<board.length; i++) {
+			combineLeft(board[i]);
+		}
+		
 		
 	}
 	
@@ -303,18 +378,38 @@ public class Board {
 	 * same behavior as combineRight but the bottom element is zeroed out when
 	 * two elements are combined
 	 */
-
+	public void combineUp(int[]arr) {
+		combineLeft(arr);
+	}
 	public void combineUp() {
+		for(int col = 0; col<board.length; col++) {
+			int array[] = new int[4];
+			array = getCol(board, col);
+			combineUp(array);
+			for(int row = 0; row<board.length; row++) {
+				board[row][col] = array[row];
+			}
 
+		}
 	}
 
 	/*
 	 * same behavior as combineRight but the top element is zeroed out when two
 	 * elements are combined
 	 */
-
+	public void combineDown(int[]arr) {
+		combineRight(arr);
+	}
 	public void combineDown() {
+		for(int col = 0; col<board.length; col++) {
+			int array[] = new int[4];
+			array = getCol(board, col);
+			combineDown(array);
+			for(int row = 0; row<board.length; row++) {
+				board[row][col] = array[row];
+			}
 
+		}
 	}
 
 	
@@ -328,17 +423,25 @@ public class Board {
 		//1) numbers slide to the left
 		//2) combine
 		//3) slide
+		slideLeft();
+		combineLeft();
 	}
 
 	public void right() {
-
+		slideRight();
+		combineRight();
 	}
 
 	public void up() {
+		slideUp();
+		combineUp();
+		
 
 	}
 
 	public void down() {
+		slideDown();
+		combineDown();
 
 	}
 	
@@ -362,3 +465,4 @@ public class Board {
 	}
 
 }
+
