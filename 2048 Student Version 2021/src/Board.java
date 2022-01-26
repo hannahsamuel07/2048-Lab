@@ -239,7 +239,7 @@ public class Board {
 	 * elements in the given column number.
 	 */
 	public int[] getCol(int[][] data, int c) {
-		
+		//return a col in the 1D array
 		int row = 0;
 		int[] myArray = new int [data.length];
 			for(int i = 0; i<data. length; i++) {
@@ -267,6 +267,7 @@ public class Board {
 		/* calls a helper method */
 		
 		// do not rewrite logic you already have!
+		//apply the left logic on the col bc the col is a another row and to move it up you move left
 		slideLeft(arr);
 	}
 
@@ -286,8 +287,11 @@ public class Board {
 		// back to the 2D board array
 		for(int col = 0; col<board.length; col++) {
 			int array[] = new int[4];
+			//get a col and put in an a new array
 			array = getCol(board, col);
+			//slide it up
 			slideUp(array);
+			//coppy the slid up col into the board on the same col location
 			for(int row = 0; row<board.length; row++) {
 				board[row][col] = array[row];
 			}
@@ -299,6 +303,7 @@ public class Board {
 	}
 
 	public void slideDown(int[] arr) {
+		//apply slide right logic on on the array being passed in
 		slideRight(arr);
 		
 	}
@@ -310,10 +315,14 @@ public class Board {
 	 */
 
 	public void slideDown() {
+		
 		for(int col = 0; col<board.length; col++) {
 			int array[] = new int[4];
+			//get a column from 2d array and put in 1d array
 			array = getCol(board, col);
+			//slide down the 1D array
 			slideDown(array);
+			//put the new slide down array into the board
 			for(int row = 0; row<board.length; row++) {
 				board[row][col] = array[row];
 			}
@@ -335,15 +344,16 @@ public class Board {
 	 */
 	public void combineRight(int[] arr) {
 		for(int i = 0; i<arr.length-1; i++) {
-			if(arr[i]==arr[i+1]) {
-				arr[i+1] = arr[i] +arr[i];
-				arr[i] = 0;	
-				i++;
+			if(arr[i]==arr[i+1]) { //if you find adjacent tiles
+				arr[i+1] = arr[i] +arr[i]; //add them together
+				arr[i] = 0;	//and zero the other one
+				i++; // NOTE: skip an element once  you combined right so yo move forward
 			}
 		}
 		
 	}
 	public void combineRight() {
+		//for every element on the board, apply the combine right method
 		for(int i = 0; i<board.length; i++) {
 			combineRight(board[i]);
 		}
@@ -357,16 +367,17 @@ public class Board {
 	 * [8,0,0,0]
 	 */
 	public void combineLeft(int[] arr) {
-		for(int i = 0; i<arr.length-1; i++) {
-			if(arr[i]==arr[i+1]) {
-				arr[i] = arr[i] +arr[i];	
-				arr[i+1] = 0;
+		for(int i = 0; i<arr.length-1; i++) { 
+			if(arr[i]==arr[i+1]) { //if you find adjacent cells
+				arr[i] = arr[i] +arr[i];	//add them together
+				arr[i+1] = 0; //zero the element out
 	
-				i++;
+				i++; //skip the element you just used
 			}
 		}
 	}
 	public void combineLeft() {
+		//apply the combine left method onto the entire board
 		for(int i = 0; i<board.length; i++) {
 			combineLeft(board[i]);
 		}
@@ -379,13 +390,17 @@ public class Board {
 	 * two elements are combined
 	 */
 	public void combineUp(int[]arr) {
+		//combineUp uses the combineLeft method
 		combineLeft(arr);
 	}
 	public void combineUp() {
 		for(int col = 0; col<board.length; col++) {
 			int array[] = new int[4];
+			//take a col from the 2D array
 			array = getCol(board, col);
+			//combine Up
 			combineUp(array);
+			//aply the new fixed array onto the board
 			for(int row = 0; row<board.length; row++) {
 				board[row][col] = array[row];
 			}
@@ -398,13 +413,17 @@ public class Board {
 	 * elements are combined
 	 */
 	public void combineDown(int[]arr) {
+		//apply the combine right method
 		combineRight(arr);
 	}
 	public void combineDown() {
 		for(int col = 0; col<board.length; col++) {
 			int array[] = new int[4];
+			//take a col from the 2D array
 			array = getCol(board, col);
+			//combine the elements
 			combineDown(array);
+			//put the combine array onto the board
 			for(int row = 0; row<board.length; row++) {
 				board[row][col] = array[row];
 			}
