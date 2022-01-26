@@ -1,4 +1,3 @@
-
 public class Activity3Tester {
 
 	public static void main(String[] args) {
@@ -13,14 +12,31 @@ public class Activity3Tester {
 		
 		//print out the array to see if slideRight
 		//worked
-		int[] array = {2,0,0,2};
+		//int[] array = {2,0,0,2};
 		//System.out.print(b);
-		b.slideRight(array);
-		//System.out.print(array);
-		for(int val : array) {
-			System.out.println(val + " ");
+//		int[][] array = { {0,0,0,0},
+//						  {0,2,0,0,},
+//						  {0,0,4,0},
+//						  {0,0,4,0} } ;
+//		
+//		int[] my1Darray = new int[4];
+//		my1Darray = b.getCol(array,2);
+//		for(int val : my1Darray) {
+//			System.out.print(val);	
+//		}
 		
+//		System.out.print(b.toString());
+//		b.slideDown();
+//		System.out.println();
+//		System.out.print(b.toString());
+
+		int[] array = {2,2,2,2};
+		b.combineLeft(array);
+		for(int val : array) {
+			System.out.print(val);	
 		}
+		
 	}
 
 }
+
