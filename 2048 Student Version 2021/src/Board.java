@@ -42,7 +42,7 @@ public class Board {
 		 * An example is shown below. 
 		 * String str = String.format("%04d", 9);  // 0009  
 		 * int x = 30;
-		 * System.out.println(String.format("%04d",x));
+		 * //System.out.println(String.format("%04d",x));
 		 *     
 		 */
 		
@@ -339,15 +339,15 @@ public class Board {
 	 * produce [0 4 0 4].
 	 * 
 	 * Notice that the left element is zeroed out.
-	 * [2 2 2 2]
-	 * [0 4 2 2] 
+	 * [2 2 0 2]
+	 * [0 2 2 2] -> [0 2 0 4] 
 	 */
 	public void combineRight(int[] arr) {
-		for(int i = 0; i<arr.length-1; i++) {
-			if(arr[i]==arr[i+1]) { //if you find adjacent tiles
-				arr[i+1] = arr[i] +arr[i]; //add them together
-				arr[i] = 0;	//and zero the other one
-				i++; // NOTE: skip an element once  you combined right so yo move forward
+		for(int i = arr.length-1; i>0; i--) {
+			if(arr[i]==arr[i-1]) { //if you find adjacent tiles
+				arr[i-1] = 0; //add them together
+				arr[i] = arr[i] +arr[i];	//and zero the other one
+				i--; // NOTE: skip an element once  you combined right so yo move forward
 			}
 		}
 		
@@ -371,7 +371,6 @@ public class Board {
 			if(arr[i]==arr[i+1]) { //if you find adjacent cells
 				arr[i] = arr[i] +arr[i];	//add them together
 				arr[i+1] = 0; //zero the element out
-	
 				i++; //skip the element you just used
 			}
 		}
@@ -444,16 +443,19 @@ public class Board {
 		//3) slide
 		slideLeft();
 		combineLeft();
+		slideLeft();
 	}
 
 	public void right() {
 		slideRight();
 		combineRight();
+		slideRight();
 	}
 
 	public void up() {
 		slideUp();
 		combineUp();
+		slideUp();
 		
 
 	}
@@ -461,6 +463,7 @@ public class Board {
 	public void down() {
 		slideDown();
 		combineDown();
+		slideDown();
 
 	}
 	
@@ -484,4 +487,3 @@ public class Board {
 	}
 
 }
-
