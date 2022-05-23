@@ -1,15 +1,5 @@
-# 2048Starter
+# 2048 
+## Introduction
+#### When I first started learning 2D Arrays, I recreated some of the game functions of 2048. By learning to move tile objects up and down or left and right, these tile motions came together to create the 2048 game. In this lab, I learned how to implement helper methods and access/ travel 2D arrays. This lab helped me better understand how to visualize a 2d array and the function you can create to change the contents of the array based on the user key inputs.
 
-### Clone
-Click on the Use this template button to clone the repository. Be sure to make it private.
-
-# Import Project in Eclipse
-Clone the repository that was created after using the template button. Import the project during or after cloning. 
-If you have forgotten GitHub integration in ecipse, review this [document](https://studycs.org/github)
-
-# Not Using Eclipse?
-All the files necessary to run the project is in the src folder. If you are using a different IDE, you should be able to create any Java project in your chosen IDE then simply make sure the files in the src folder are in your java project's src folder. 
-
-## Student Guide
-[Student Guide](https://docs.google.com/document/d/1ajDy8JXvY-S79Wgk2Ic-YRQ3gj1nkJX5nMyD1gYfGXQ/edit?usp=sharing)
-
+## Results
